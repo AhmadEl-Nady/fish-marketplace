@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+fish_marketplace.db
+.env
+static/uploads/*
+!static/uploads/.gitkeep

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Order received | Bluefin Market{% endblock %}
+{% block content %}
+<section class="success-page"><div class="success-symbol">✓</div><span class="eyebrow">THANK YOU FOR CHOOSING BLUEFIN</span><h1>Your order is <em>received.</em></h1><p>Order #{{ order.id }} has been submitted. The store will contact you to confirm the details.</p><div class="order-summary"><strong>Order summary</strong><p>{{ order.items }}</p><div class="summary-total">Total <strong>EGP {{ '%.2f'|format(order.total) }}</strong></div></div>
+{% if whatsapp %}<a class="button button-whatsapp" target="_blank" rel="noopener" href="https://wa.me/{{ whatsapp }}?text={{ ('Hello, I just submitted order #' ~ order.id ~ '. My name is ' ~ order.customer_name ~ '. Order: ' ~ order.items ~ '. Total: EGP ' ~ ('%.2f'|format(order.total)))|urlencode }}">Continue on WhatsApp ↗</a>{% endif %}
+<a class="text-link centered" href="{{ url_for('home') }}">Back to the collection</a></section>
+{% endblock %}

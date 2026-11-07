@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ item.name }} | Bluefin Market{% endblock %}
+{% block content %}
+<div class="breadcrumbs"><a href="{{ url_for('home') }}">Home</a> / {{ item.name }}</div>
+<section class="detail-layout">
+  <div class="detail-image">
+    {% if item.image %}<img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.name }}">{% else %}<div class="image-placeholder"><span>✦</span><small>PHOTO COMING SOON</small></div>{% endif %}
+  </div>
+  <div class="detail-copy">
+    <span class="eyebrow">BLUEFIN COLLECTION</span><h1>{{ item.name }}</h1>
+    <div class="detail-price">EGP {{ '%.2f'|format(item.price) }}</div>
+    <p class="detail-description">{{ item.description }}</p>
+    <div class="care-box"><span class="care-icon">✳</span><div><small>RECOMMENDED FOOD</small><p>{{ item.food }}</p></div></div>
+    <p class="stock-line">{{ item.quantity }} available</p>
+    <a class="button button-dark full-button" href="{{ url_for('checkout') }}">Order this fish <span>↗</span></a>
+    {% if whatsapp %}
+    <a class="button button-whatsapp full-button" target="_blank" rel="noopener" href="https://wa.me/{{ whatsapp }}?text={{ ('Hello, I am interested in ordering ' ~ item.name ~ '. Price: EGP ' ~ ('%.2f'|format(item.price)))|urlencode }}">Order via WhatsApp <span>↗</span></a>
+    {% else %}
+    <p class="small-note">WhatsApp ordering will be available once the store owner adds a WhatsApp number.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

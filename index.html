@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Bluefin Market | Discover beautiful fish{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">A better way to explore aquatic life</span>
+    <h1>Find the fish<br><em>you’ll love.</em></h1>
+    <p>Explore beautiful fish, learn what they eat, and find the right addition for your aquarium.</p>
+    <a class="button button-light" href="#fish">Explore fish <span>↗</span></a>
+  </div>
+  <div class="hero-art"><div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-fish">◉<span>≈</span></div><div class="hero-bubble bubble-one"></div><div class="hero-bubble bubble-two"></div></div>
+  <div class="hero-bottom"><span>CURATED AQUATIC COLLECTION</span><span>01 — DISCOVER</span></div>
+</section>
+<section class="intro-row">
+  <div><span class="eyebrow">THE COLLECTION</span><h2>Meet your next<br><em>aquatic favorite.</em></h2></div>
+  <p>From vibrant colors to peaceful swimmers, explore our available collection and discover the care each fish needs.</p>
+</section>
+<section class="catalog" id="fish">
+  <div class="catalog-heading">
+    <div><span class="eyebrow">SHOP THE COLLECTION</span><h2>Available fish <span class="count">{{ fish|length }}</span></h2></div>
+    <form class="search-form" action="{{ url_for('search') }}" method="get"><input name="q" value="{{ search_term|default('') }}" placeholder="Search fish, food..."><button aria-label="Search">⌕</button></form>
+  </div>
+  {% if fish %}
+  <div class="fish-grid">
+    {% for item in fish %}
+    <article class="fish-card">
+      <a class="fish-image" href="{{ url_for('fish_details', fish_id=item.id) }}">
+        {% if item.image %}<img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.name }}">{% else %}<div class="image-placeholder"><span>✦</span><small>PHOTO COMING SOON</small></div>{% endif %}
+        <span class="image-arrow">↗</span>
+      </a>
+      <div class="fish-card-info">
+        <div><span class="card-kicker">AQUATIC COLLECTION</span><h3>{{ item.name }}</h3></div>
+        <strong class="price">EGP {{ '%.2f'|format(item.price) }}</strong>
+      </div>
+      <p class="card-description">{{ item.description }}</p>
+      <a class="text-link" href="{{ url_for('fish_details', fish_id=item.id) }}">Discover fish <span>→</span></a>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state"><span>✧</span><h3>No fish found just yet</h3><p>Try another search, or check back soon for new arrivals.</p></div>
+  {% endif %}
+</section>
+<section class="care-banner"><span class="eyebrow">MORE THAN A MARKETPLACE</span><h2>Good care starts<br>with <em>good knowledge.</em></h2><p>Every fish listing includes helpful food recommendations to help you make a confident choice.</p></section>
+{% endblock %}

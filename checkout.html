@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Place an order | Bluefin Market{% endblock %}
+{% block content %}
+<section class="form-page">
+  <span class="eyebrow">LET’S GET YOUR ORDER STARTED</span><h1>Place your <em>order.</em></h1>
+  <p class="form-intro">Choose the fish you want and enter your contact details. We’ll follow up to confirm your order.</p>
+  <form method="post" class="checkout-form">
+    <div class="form-section"><h3>01 / Your details</h3><div class="form-grid">
+      <label>Full name<input name="customer_name" required placeholder="Your name"></label>
+      <label>Phone number<input name="phone" required placeholder="+20..."></label>
+      <label class="wide">Delivery address<textarea name="address" required rows="2" placeholder="Your full address"></textarea></label>
+      <label class="wide">Order notes <span class="optional">OPTIONAL</span><textarea name="notes" rows="2" placeholder="Anything we should know?"></textarea></label>
+    </div></div>
+    <div class="form-section"><h3>02 / Choose your fish</h3>
+      {% if fish %}
+      <div class="checkout-items">{% for item in fish %}<label class="checkout-item"><input type="checkbox" name="fish_id" value="{{ item.id }}"><span class="checkout-name">{{ item.name }}<small>EGP {{ '%.2f'|format(item.price) }} · {{ item.quantity }} available</small></span><input class="quantity-input" type="number" name="quantity_{{ item.id }}" min="1" max="{{ item.quantity }}" value="1" aria-label="Quantity for {{ item.name }}"></label>{% endfor %}</div>
+      {% else %}<p>No fish are currently available to order.</p>{% endif %}
+    </div>
+    <button class="button button-dark full-button" type="submit" {% if not fish %}disabled{% endif %}>Submit order <span>↗</span></button>
+    <p class="small-note">Submitting an order does not charge your card. The store will contact you to confirm availability, delivery, and payment.</p>
+  </form>
+</section>
+{% endblock %}

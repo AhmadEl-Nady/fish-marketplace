@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Admin login | Bluefin Market{% endblock %}
+{% block content %}
+<section class="login-page"><div class="login-panel"><span class="eyebrow">PRIVATE ACCESS</span><h1>Welcome <em>back.</em></h1><p>Sign in to manage your fish collection and orders.</p><form method="post"><label>Username<input name="username" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button class="button button-dark full-button">Sign in <span>↗</span></button></form><a class="text-link centered" href="{{ url_for('home') }}">Return to store</a></div></section>
+{% endblock %}

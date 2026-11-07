@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit fish' if item else 'Add fish' }} | Bluefin Market{% endblock %}
+{% block content %}
+<section class="form-page admin-form-page"><span class="eyebrow">COLLECTION MANAGEMENT</span><h1>{{ 'Edit fish.' if item else 'Add a new fish.' }}</h1><p class="form-intro">Enter the fish information shown to customers.</p>
+<form method="post" enctype="multipart/form-data" class="checkout-form">
+<div class="form-grid">
+<label>Fish name<input name="name" required value="{{ item.name if item else '' }}" placeholder="e.g. Betta Fish"></label>
+<label>Price (EGP)<input name="price" type="number" min="0" step="0.01" required value="{{ item.price if item else '' }}" placeholder="0.00"></label>
+<label class="wide">Description<textarea name="description" rows="4" required placeholder="Describe the fish...">{{ item.description if item else '' }}</textarea></label>
+<label class="wide">Recommended food<textarea name="food" rows="3" required placeholder="What should this fish eat?">{{ item.food if item else '' }}</textarea></label>
+<label>Available quantity<input name="quantity" type="number" min="0" step="1" required value="{{ item.quantity if item else 0 }}"></label>
+<label>Fish photo<input name="image" type="file" accept=".jpg,.jpeg,.png,.webp,.gif"><span class="field-hint">JPG, PNG, WEBP, or GIF · Max 8 MB{% if item and item.image %} · Leave empty to keep current photo{% endif %}</span></label>
+</div>
+<div class="form-actions"><button class="button button-dark" type="submit">Save fish <span>↗</span></button><a class="text-link" href="{{ url_for('admin_dashboard') }}">Cancel</a></div>
+</form></section>
+{% endblock %}
